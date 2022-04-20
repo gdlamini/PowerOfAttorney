@@ -52,10 +52,12 @@ public class MainSI {
         String countryRes;
         String email;
         String countryBirth;
+        String signature;
+        String sign;
 
 
 
-        boolean userLoggedIn = false;
+        boolean signingInstructionIn = false;
         SpecialPOA.AddODJagacy preApproved = null;
         ExcelFunctions excel;
         AddODJagacy = new AddODJagacy();
@@ -94,6 +96,8 @@ public class MainSI {
         int _countryRes = 0;
         int _email = 0;
         int _countryBirth = 0;
+        int _signature = 0;
+        int _sign = 0;
 
 
         ExtentReports extent =  null;
@@ -116,6 +120,7 @@ public class MainSI {
             _option = excel.columnsNames.indexOf("Option");
             _accountNo = excel.columnsNames.indexOf("Account_No");
             _option1 = excel.columnsNames.indexOf("Option_");
+            _signature = excel.columnsNames.indexOf("Signatures");
             _CSA = excel.columnsNames.indexOf("CSA");
             _title = excel.columnsNames.indexOf("title");
             _initials = excel.columnsNames.indexOf("Initials");
@@ -140,7 +145,7 @@ public class MainSI {
             _postalCode = excel.columnsNames.indexOf("PostalCode");
             _countryRes = excel.columnsNames.indexOf("Country_Residence");
             _email = excel.columnsNames.indexOf("Email");
-//            _Option = excel.columnsNames.indexOf("Option");
+            _sign = excel.columnsNames.indexOf("Sign");
 
 
 
@@ -159,6 +164,7 @@ public class MainSI {
                     option = excel.ReadCell(y,_option);
                     accountNo = excel.ReadCell(y,_accountNo);
                     option1 = excel.ReadCell(y,_option1);
+                    signature = excel.ReadCell(y,_signature);
                     CSA = excel.ReadCell(y,_CSA);
                     title = excel.ReadCell(y,_title);
                     initials = excel.ReadCell(y,_initials);
@@ -183,6 +189,7 @@ public class MainSI {
                     postalCode = excel.ReadCell(y,_postalCode);
                     countryRes = excel.ReadCell(y,_countryRes);
                     email = excel.ReadCell(y,_email);
+                    sign = excel.ReadCell(y,_sign);
 
 
 
@@ -196,10 +203,10 @@ public class MainSI {
                         ExcelFunctions.output_document = new FileOutputStream(String.valueOf(new File(filePath)));
 
                         //Login
-                        userLoggedIn = preApproved.userLogin(username, password, option,accountNo, option1, CSA,firstName,email,gender,language,DoB,suburb,surname,initials,idNumber,idType,postalCode,consent,countryRes,city,suburb,address,designation,occ_status,occ_code,consent,nationality,countryBirth);
+                        signingInstructionIn = preApproved.signingInstruction(username,password,runStatus, option,accountNo, option1,signature,CSA,title,initials,DoB,surname,gender,firstName,language,idType,idNumber,dateIssued,nationality,countryBirth,consent,designation,occ_status,occ_code,address,address1,suburb,city,postalCode,countryRes,email,sign);
 
                         //
-                        if(userLoggedIn){
+                        if(signingInstructionIn){
 
                             test = extent.startTest("Add Power of Attorney:", "Test Case Scenarios");
                             test.assignAuthor("AUTHOR: Data Management Team");

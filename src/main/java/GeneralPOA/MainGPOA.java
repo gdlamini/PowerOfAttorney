@@ -54,7 +54,7 @@ public class MainGPOA {
 
 
 
-        boolean userLoggedIn = false;
+        boolean generalPOAIn = false;
         SpecialPOA.AddODJagacy preApproved = null;
         ExcelFunctions excel;
         AddODJagacy = new AddODJagacy();
@@ -142,7 +142,7 @@ public class MainGPOA {
 
 
 
-            int reply = JOptionPane.showConfirmDialog(null, "Do you want to Add Power of Attorney...", "Power of Attorney...", JOptionPane.YES_NO_OPTION);
+            int reply = JOptionPane.showConfirmDialog(null, "Do you want to Add General Power of Attorney...", "Power of Attorney...", JOptionPane.YES_NO_OPTION);
 
             if(reply == JOptionPane.YES_OPTION) {
 
@@ -192,27 +192,27 @@ public class MainGPOA {
                         ExcelFunctions.output_document = new FileOutputStream(String.valueOf(new File(filePath)));
 
                         //Login
-                        userLoggedIn = preApproved.userLogin(username, password, option,accountNo, option1, CSA,firstName,email,gender,language,DoB,suburb,surname,initials,idNumber,idType,postalCode,consent,countryRes,city,suburb,address,designation,occ_status,occ_code,consent,nationality,countryBirth);
+                        generalPOAIn = preApproved.generalPOA(username, password, option,accountNo, option1, CSA,firstName,email,gender,language,DoB,suburb,surname,initials,idNumber,idType,postalCode,consent,countryRes,city,suburb,address,designation,occ_status,occ_code,consent,nationality,countryBirth);
 
                         //
-                        if(userLoggedIn){
+                        if(generalPOAIn){
 
-                            test = extent.startTest("Add Power of Attorney:", "Test Case Scenarios");
+                            test = extent.startTest("Add General Power of Attorney:", "Test Case Scenarios");
                             test.assignAuthor("AUTHOR: Data Management Team");
-                            test.assignCategory("Add Power of Attorney:");
+                            test.assignCategory("Add General Power of Attorney:");
 
 
                         }
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Adding of Power of Attorney has been Cancelled...");
+                JOptionPane.showMessageDialog(null, "Adding of General Power of Attorney has been Cancelled...");
                 System.exit(0);
             }
 
             extent.endTest(test);
             extent.flush();
-            JOptionPane.showMessageDialog(null, "Add Power of Attorney Completed..");
+            JOptionPane.showMessageDialog(null, "Adding General Power of Attorney Completed..");
         }catch (Exception ex){
             ex.printStackTrace();
         }

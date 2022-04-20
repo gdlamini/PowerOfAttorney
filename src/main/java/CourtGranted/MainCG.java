@@ -45,19 +45,23 @@ public class MainCG {
         String occ_code;
         String designation;
         String address;
+        String address1;
         String suburb;
         String city;
         String postalCode;
         String countryRes;
         String email;
         String countryBirth;
+        String authority;
+        String sign;
+        String signature;
 
 
 
-        boolean userLoggedIn = false;
+        boolean courtGrantedIn = false;
         SpecialPOA.AddODJagacy preApproved = null;
         ExcelFunctions excel;
-        AddODJagacy = new AddODJagacy();
+
 
         int _username = 0;
         int _password = 0;
@@ -86,20 +90,23 @@ public class MainCG {
         int _occ_code = 0;
         int _designation = 0;
         int _address = 0;
+        int _address1 = 0;
         int _suburb = 0;
         int _city = 0;
         int _postalCode = 0;
         int _countryRes = 0;
         int _email = 0;
         int _countryBirth = 0;
-        //   int _OverDraftAmount = 0;
+        int _authority = 0;
+        int _sign = 0;
+        int _signature = 0;
 
         ExtentReports extent =  null;
         ExtentTest test = null;
         // Screen sikuliScreen = new Screen(0);
         String capture= "";
 
-        String filePath = System.getProperty("user.dir")+"\\Data_File\\GeneralPOA.xlsx";
+        String filePath = System.getProperty("user.dir")+"\\Data_File\\CourtGranted.xlsx";
         ReportClass.ReportDirectory();
 
         try {
@@ -132,17 +139,20 @@ public class MainCG {
             _occ_code = excel.columnsNames.indexOf("Occ_Code");
             _designation = excel.columnsNames.indexOf("Designation");
             _address = excel.columnsNames.indexOf("Address");
+            _address1 = excel.columnsNames.indexOf("Address1");
             _suburb = excel.columnsNames.indexOf("Suburb");
             _city = excel.columnsNames.indexOf("City");
             _postalCode = excel.columnsNames.indexOf("PostalCode");
             _countryRes = excel.columnsNames.indexOf("Country_Residence");
             _email = excel.columnsNames.indexOf("Email");
-//            _Option = excel.columnsNames.indexOf("Option");
+            _authority = excel.columnsNames.indexOf("Authority");
+            _signature = excel.columnsNames.indexOf("Signatures");
+            _sign = excel.columnsNames.indexOf("Sign");
 
 
 
 
-            int reply = JOptionPane.showConfirmDialog(null, "Do you want to Add Power of Attorney...", "Power of Attorney...", JOptionPane.YES_NO_OPTION);
+            int reply = JOptionPane.showConfirmDialog(null, "Do you want to Add Power of Authority...", "Power of Authority...", JOptionPane.YES_NO_OPTION);
 
             if(reply == JOptionPane.YES_OPTION) {
 
@@ -174,11 +184,15 @@ public class MainCG {
                     occ_code = excel.ReadCell(y,_occ_code);
                     designation = excel.ReadCell(y,_designation);
                     address = excel.ReadCell(y,_address);
+                    address1 = excel.ReadCell(y,_address1);
                     suburb = excel.ReadCell(y,_suburb);
                     city = excel.ReadCell(y,_city);
                     postalCode = excel.ReadCell(y,_postalCode);
                     countryRes = excel.ReadCell(y,_countryRes);
                     email = excel.ReadCell(y,_email);
+                    authority = excel.ReadCell(y,_authority);
+                    signature = excel.ReadCell(y,_signature);
+                    sign = excel.ReadCell(y,_sign);
 
 
 
@@ -192,27 +206,27 @@ public class MainCG {
                         ExcelFunctions.output_document = new FileOutputStream(String.valueOf(new File(filePath)));
 
                         //Login
-                        userLoggedIn = preApproved.userLogin(username, password, option,accountNo, option1, CSA,firstName,email,gender,language,DoB,suburb,surname,initials,idNumber,idType,postalCode,consent,countryRes,city,suburb,address,designation,occ_status,occ_code,consent,nationality,countryBirth);
+                        courtGrantedIn = preApproved.courtGranted(username,password,runStatus,option,accountNo,option1,authority,signature,CSA,title,initials,DoB,surname,gender,firstName,language,idType,idNumber,dateIssued,nationality,countryBirth,consent,occ_status,occ_code,designation,address,address1,suburb,city,postalCode,countryRes,email,sign);
 
                         //
-                        if(userLoggedIn){
+                        if(courtGrantedIn){
 
-                            test = extent.startTest("Add Power of Attorney:", "Test Case Scenarios");
+                            test = extent.startTest("Authority Granted by Supreme Granted:", "Test Case Scenarios");
                             test.assignAuthor("AUTHOR: Data Management Team");
-                            test.assignCategory("Add Power of Attorney:");
+                            test.assignCategory("Add Power of Authority:");
 
 
                         }
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Adding of Power of Attorney has been Cancelled...");
+                JOptionPane.showMessageDialog(null, "Adding of Power of Authority has been Cancelled...");
                 System.exit(0);
             }
 
             extent.endTest(test);
             extent.flush();
-            JOptionPane.showMessageDialog(null, "Add Power of Attorney Completed..");
+            JOptionPane.showMessageDialog(null, "Adding Power of Authority Completed..");
         }catch (Exception ex){
             ex.printStackTrace();
         }

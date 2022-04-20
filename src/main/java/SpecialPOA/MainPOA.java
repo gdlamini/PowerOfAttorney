@@ -97,7 +97,7 @@ public class MainPOA {
        // Screen sikuliScreen = new Screen(0);
         String capture= "";
 
-        String filePath = System.getProperty("user.dir")+"\\Data_File\\Book1.xlsx";
+        String filePath = System.getProperty("user.dir")+"\\Data_File\\SpecialPOA.xlsx";
         ReportClass.ReportDirectory();
 
         try {
@@ -141,7 +141,7 @@ public class MainPOA {
 
           //  _OverDraftAmount = excel.columnsNames.indexOf("OverDraftAmount");
 
-            int reply = JOptionPane.showConfirmDialog(null, "Do you want to Add Power of Attorney...", "Power of Attorney...", JOptionPane.YES_NO_OPTION);
+            int reply = JOptionPane.showConfirmDialog(null, "Do you want to Add Special Power of Attorney...", "Power of Attorney...", JOptionPane.YES_NO_OPTION);
 
             if(reply == JOptionPane.YES_OPTION) {
 
@@ -197,7 +197,7 @@ public class MainPOA {
                         //
                         if(userLoggedIn){
 
-                            test = extent.startTest("Add Power of Attorney:", "Test Case Scenarios");
+                            test = extent.startTest("Add Special Power of Attorney:", "Test Case Scenarios");
                             test.assignAuthor("AUTHOR: Data Management Team");
                             test.assignCategory("Add Power of Attorney:");
 
@@ -241,13 +241,13 @@ public class MainPOA {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Adding of Power of Attorney has been Cancelled...");
+                JOptionPane.showMessageDialog(null, "Adding of Special Power of Attorney has been Cancelled...");
                 System.exit(0);
             }
 
             extent.endTest(test);
             extent.flush();
-            JOptionPane.showMessageDialog(null, "Add Power of Attorney Completed..");
+            JOptionPane.showMessageDialog(null, "Adding Special Power of Attorney Completed..");
         }catch (Exception ex){
             ex.printStackTrace();
         }
