@@ -57,7 +57,7 @@ public class MainGPOA {
         boolean generalPOAIn = false;
         SpecialPOA.AddODJagacy preApproved = null;
         ExcelFunctions excel;
-        AddODJagacy = new AddODJagacy();
+
 
         int _username = 0;
         int _password = 0;

@@ -646,9 +646,166 @@ public class AddODJagacy extends Session3270 {
         }
     }
 
-    public boolean youthConsent(){
+    public boolean youthConsent(String username,String password,String runStatus,String option,String accountNo,String option1,String signature,String CSA,String title,String initials,String DoB,String surname,String gender,String firstName,String language,String idType,String idNumber,String dateIssued,String nationality,String countryBirth,String consent,String occ_status,String occ_code,String designation,String address,String address1,String suburb,String city,String postalCode,String countryRes,String email,String clientCode,String sign) throws JagacyException {
+
+        waitForChange(10000);
+        userIdRow = 22;
+        userIdColumn = 26;
+        this.writePosition(userIdRow, userIdColumn, "IMSV");
+        this.writeKey(Key.ENTER);
+
+        this.waitForChange(10000);
+        userIdRow = 14;
+        userIdColumn = 10;
+        this.writePosition(userIdRow, userIdColumn, username);
+
+        userIdRow = 16;
+        userIdColumn = 11;
+        this.writePosition(userIdRow, userIdColumn, password);
+        this.writeKey(Key.ENTER);
+        this.waitForChange(30000);
+
+        userIdRow = 23;
+        userIdColumn = 22;
+        message = this.readPosition(userIdRow, userIdColumn, 40).trim();
+
+        if (message.equalsIgnoreCase("INCORRECT OR NO PASSWORD ENTERED.") || message.equalsIgnoreCase("USERID IS NOT DEFINED TO RACF.") || message.equalsIgnoreCase("Your USERID is already logged on.")) {
+            return false;
+        } else {
 
 
-        return true;
+            userIdRow = 2;
+            userIdColumn = 2;
+            this.writePosition(userIdRow, userIdColumn, "/test mfs");
+            this.writeKey(Key.ENTER);
+            waitForChange(50000);
+
+            this.writePosition(userIdRow, userIdColumn, "auth");
+            this.writeKey(Key.ENTER);
+            waitForChange(10000);
+
+            userIdRow = 4;
+            userIdColumn = 53;
+            this.writePosition(userIdRow, userIdColumn, option);
+
+            userIdRow = 7;
+            userIdColumn = 17;
+            this.writePosition(userIdRow, userIdColumn, accountNo);
+
+            userIdRow = 10;
+            userIdColumn = 37;
+            this.writePosition(userIdRow, userIdColumn, option1);
+            this.writeKey(Key.ENTER);
+            waitForChange(10000);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, signature);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, CSA);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, title);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, initials);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, DoB);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, surname);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, gender);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, firstName);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, language);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, idType);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, idNumber);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, dateIssued);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, nationality);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, countryBirth);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, consent);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, occ_status);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, occ_code);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, designation);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, address);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, address1);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, suburb);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, city);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, postalCode);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, countryRes);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, email);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, clientCode);
+
+            userIdRow = 14;
+            userIdColumn = 10;
+            this.writePosition(userIdRow, userIdColumn, sign);
+            return true;
+        }
     }
 }
