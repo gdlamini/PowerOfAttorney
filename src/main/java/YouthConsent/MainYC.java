@@ -56,7 +56,7 @@ public class MainYC {
 
 
 
-        boolean youthConsentIn = false;
+        String youthConsentIn;
         SpecialPOA.AddODJagacy preApproved = null;
         ExcelFunctions excel;
 
@@ -151,7 +151,7 @@ public class MainYC {
 
 
 
-            int reply = JOptionPane.showConfirmDialog(null, "Do you want to Add Signing Instruction...", "Signing of Instructions...", JOptionPane.YES_NO_OPTION);
+            int reply = JOptionPane.showConfirmDialog(null, "Do you want to Add Youth Consent...", "Signing of Instructions...", JOptionPane.YES_NO_OPTION);
 
             if(reply == JOptionPane.YES_OPTION) {
 
@@ -205,7 +205,7 @@ public class MainYC {
                         ExcelFunctions.output_document = new FileOutputStream(String.valueOf(new File(filePath)));
 
                         //Login
-                        youthConsentIn = preApproved.youthConsent(username,password,runStatus,option,accountNo, option1,signature,CSA,title,initials,DoB,surname,gender,firstName,language,idType,idNumber,dateIssued,nationality,countryBirth,consent,occ_status,occ_code,designation,address,address1,suburb,city,postalCode,countryRes,email,clientCode,sign);
+                        youthConsentIn = preApproved.youthConsent(option,accountNo, option1,signature,CSA,title,initials,DoB,surname,gender,firstName,language,idType,idNumber,dateIssued,nationality,countryBirth,consent,occ_status,occ_code,designation,address,address1,suburb,city,postalCode,countryRes,email,clientCode,sign);
 
                         //
                         if(youthConsentIn){

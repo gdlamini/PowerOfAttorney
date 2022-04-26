@@ -4,6 +4,8 @@ package SpecialPOA;
 import com.jagacy.util.JagacyException;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+import org.sikuli.script.Screen;
 
 import javax.swing.*;
 import java.io.File;
@@ -24,8 +26,8 @@ public class MainPOA {
         String comment;
         String runStatus;
         String accountNo;
-        String option1;
-        String option;
+        String authOption;
+        String optionNew;
         String CSA;
         String title;
         String initials;
@@ -49,10 +51,15 @@ public class MainPOA {
         String countryRes;
         String email;
         String countryBirth;
+        String message;
+        String sign;
+        String signature;
+        String specialPOA;
 
 
 
         boolean userLoggedIn = false;
+        boolean specialPOAIn = false;
         AddODJagacy preApproved = null;
         ExcelFunctions excel;
         AddODJagacy = new AddODJagacy();
@@ -67,8 +74,8 @@ public class MainPOA {
         int _idNumber = 0;
         int _idType = 0;
         int _Id_UserData = 0;
-        int _option = 0;
-        int _option1 = 0;
+        int _optionNew = 0;
+        int _authOption = 0;
         int _CSA = 0;
         int _title = 0;
         int _initials = 0;
@@ -90,11 +97,13 @@ public class MainPOA {
         int _countryRes = 0;
         int _email = 0;
         int _countryBirth = 0;
+        int _sign = 0;
+        int _signature = 0;
      //   int _OverDraftAmount = 0;
 
         ExtentReports extent =  null;
         ExtentTest test = null;
-       // Screen sikuliScreen = new Screen(0);
+        Screen sikuliScreen = new Screen(0);
         String capture= "";
 
         String filePath = System.getProperty("user.dir")+"\\Data_File\\SpecialPOA.xlsx";
@@ -109,9 +118,10 @@ public class MainPOA {
             _username = excel.columnsNames.indexOf("Username");
             _password = excel.columnsNames.indexOf("Password");
             _RunStatus = excel.columnsNames.indexOf("Run_Status");
-            _option = excel.columnsNames.indexOf("Option");
+            _optionNew = excel.columnsNames.indexOf("OptionNew");
             _accountNo = excel.columnsNames.indexOf("Account_No");
-            _option1 = excel.columnsNames.indexOf("Option_");
+            _authOption = excel.columnsNames.indexOf("AuthOption");
+            _signature = excel.columnsNames.indexOf("Signatures");
             _CSA = excel.columnsNames.indexOf("CSA");
             _title = excel.columnsNames.indexOf("title");
             _initials = excel.columnsNames.indexOf("Initials");
@@ -135,6 +145,8 @@ public class MainPOA {
             _postalCode = excel.columnsNames.indexOf("PostalCode");
             _countryRes = excel.columnsNames.indexOf("Country_Residence");
             _email = excel.columnsNames.indexOf("Email");
+            _sign = excel.columnsNames.indexOf("Sign");
+
 //            _Option = excel.columnsNames.indexOf("Option");
 //            _userData = excel.columnsNames.indexOf("User_Data");
 //            _Comment = excel.columnsNames.indexOf("Comment");
@@ -152,9 +164,10 @@ public class MainPOA {
                     password = excel.ReadCell(y,_password);
                     username = excel.ReadCell(y,_username);
                     runStatus = excel.ReadCell(y,_RunStatus);
-                    option = excel.ReadCell(y,_option);
+                    optionNew = excel.ReadCell(y,_optionNew);
                     accountNo = excel.ReadCell(y,_accountNo);
-                    option1 = excel.ReadCell(y,_option1);
+                    authOption = excel.ReadCell(y,_authOption);
+                    signature = excel.ReadCell(y,_signature);
                     CSA = excel.ReadCell(y,_CSA);
                     title = excel.ReadCell(y,_title);
                     initials = excel.ReadCell(y,_initials);
@@ -178,6 +191,7 @@ public class MainPOA {
                     postalCode = excel.ReadCell(y,_postalCode);
                     countryRes = excel.ReadCell(y,_countryRes);
                     email = excel.ReadCell(y,_email);
+                    sign = excel.ReadCell(y,_sign);
 //                    userData = excel.ReadCell(y,_userData);
 //
                   //  overDraftAmount = excel.ReadCell(y,_OverDraftAmount);
@@ -192,7 +206,7 @@ public class MainPOA {
                         ExcelFunctions.output_document = new FileOutputStream(String.valueOf(new File(filePath)));
 
                         //Login
-                        userLoggedIn = preApproved.userLogin(username, password, option,accountNo, option1, CSA,firstName,email,gender,language,DoB,suburb,surname,initials,idNumber,idType,postalCode,consent,countryRes,city,suburb,address,designation,occ_status,occ_code,consent,nationality,countryBirth);
+                        userLoggedIn = preApproved.userLogin(username, password);
 
                         //
                         if(userLoggedIn){
@@ -201,42 +215,47 @@ public class MainPOA {
                             test.assignAuthor("AUTHOR: Data Management Team");
                             test.assignCategory("Add Power of Attorney:");
 
+
+
+                            message = preApproved.specialPOA(optionNew,accountNo,authOption,CSA,title,initials,DoB, surname, gender, firstName, language, idType, idNumber, dateIssued, countryBirth, nationality, consent, occ_status, occ_code, designation, address, suburb, city, postalCode, countryRes, email);
+
                            // preApproved.checkMpp();
 
-                          //  message = preApproved.AddOD(userData,accountNo,"1","2",overDraftAmount);
 
-//                            if(message.equalsIgnoreCase("INCREASE NOT ALLOWED IF NO OVERDRAFT EXISTS") || message.equalsIgnoreCase("NOT AUTHORIZED TO PROCESS OVERDRAFT")  || message.equalsIgnoreCase("ACCOUNT NUMBER DOES NOT EXIST") || message.equalsIgnoreCase("NO RAC-SITE FOR ACCOUNT DOMICILE") || message.equalsIgnoreCase("TRANSACTION NOT ALLOWED - UNDER DEBT COUNSELLING")){
-//
-//                                System.out.println("Failed");
-//                                test.log(LogStatus.INFO, message);
-//                                test.log(LogStatus.FAIL, "Data Management Team");
+
+                            if(message.equalsIgnoreCase("SPECIAL POWER OF ATTORNEY INFORMATION UPDATED SUCCESSFULLY")){
+
+                                System.out.println("Failed");
+                                test.log(LogStatus.INFO, String.valueOf(message));
+                                test.log(LogStatus.FAIL, "Data Management Team");
 //                                excel.WriteToCell("FAIL","NO RUN",message,y,_RunStatus, _Results,_Comment);
-//                                capture = sikuliScreen.saveScreenCapture(ReportFolder.screenshortReportPath,"Screen");
-//                                String screenshotName =  capture.split("\\\\")[capture.split("\\\\").length - 1];
-//                                test.log(LogStatus.INFO, test.addScreenCapture(ReportFolder.screenshortReportPath+File.separator+screenshotName));
-//                                preApproved.close();
-//
-//                            }else{
-//
-//                                System.out.println("Passed: " + message + " : " + y);
-//                                test.log(LogStatus.INFO, message);
-//                                test.log(LogStatus.PASS, "Data Management Team");
+                                capture = sikuliScreen.saveScreenCapture(ReportClass.screenshortReportPath,"Screen");
+                                String screenshotName =  capture.split("\\\\")[capture.split("\\\\").length - 1];
+                                test.log(LogStatus.INFO, test.addScreenCapture(ReportClass.screenshortReportPath+File.separator+screenshotName));
+                                preApproved.close();
+
+                            }else{
+
+                                System.out.println("Passed: " + message + " : " + y);
+                                test.log(LogStatus.PASS, "Data Management Team");
+                                test.log(LogStatus.INFO, message);
+
 //                                excel.WriteToCell("pass","RUN",message,y,_RunStatus, _Results, _Comment);
-//                                capture = sikuliScreen.saveScreenCapture(ReportFolder.screenshortReportPath,"Screen");
-//                                String screenshotName =  capture.split("\\\\")[capture.split("\\\\").length - 1];
-//                                test.log(LogStatus.INFO, test.addScreenCapture(ReportFolder.screenshortReportPath+File.separator+screenshotName));
-//                                preApproved.close();
-//                            }
-//
-//                            preApproved.close();
-//                        }else{
-//                            test = extent.startTest("Add OD:", "Test Case Scenarios");
-//                            test.assignAuthor("AUTHOR: Data Management Team");
-//                            test.assignCategory("Add OD:");
-//                            test.log(LogStatus.INFO, "CORRECT OR NO PASSWORD..");
-//                            test.log(LogStatus.FAIL, "Invalid User Credintials...");
-//                            excel.WriteToCell("Failed","NO RUN","Invalid User Credintials...",y,_RunStatus, _Results, _Comment);
-//                            preApproved.close();
+                                capture = sikuliScreen.saveScreenCapture(ReportClass.screenshortReportPath,"Screen");
+                                String screenshotName =  capture.split("\\\\")[capture.split("\\\\").length - 1];
+                                test.log(LogStatus.INFO, test.addScreenCapture(ReportClass.screenshortReportPath+File.separator+screenshotName));
+                                preApproved.close();
+                            }
+
+                            preApproved.close();
+                        }else{
+                            test = extent.startTest("Add OD:", "Test Case Scenarios");
+                            test.assignAuthor("AUTHOR: Data Management Team");
+                            test.assignCategory("Add OD:");
+                            test.log(LogStatus.INFO, "CORRECT OR NO PASSWORD..");
+                            test.log(LogStatus.FAIL, "Invalid User Credintials...");
+                            excel.WriteToCell("Failed","NO RUN","Invalid User Credintials...",y,_RunStatus, _Results, _Comment);
+                            preApproved.close();
                        }
                     }
                 }

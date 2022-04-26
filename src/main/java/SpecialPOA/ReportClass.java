@@ -34,7 +34,7 @@ public class ReportClass {
         }
 
         // Root Test Suite Folder [Example : Home Loans.]
-        File testFolder = new File( rootReportFolder + File.separator +  "AOL_Account_Creation_Reports");
+        File testFolder = new File( rootReportFolder + File.separator +  "POWER_of_ATTORNEY_Reports");
         if (!testFolder.exists()) {
             LOGGER.info("Creating Site directory" + testFolder);
             testFolder.mkdir();
